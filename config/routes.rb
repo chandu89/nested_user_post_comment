@@ -5,4 +5,10 @@ Rails.application.routes.draw do
   devise_for :users 
   
   root 'posts#index'
+
+  namespace :api do
+	  namespace :v1 do
+	    resources :users, defaults: { format: 'json' }
+	  end
+	end
 end
