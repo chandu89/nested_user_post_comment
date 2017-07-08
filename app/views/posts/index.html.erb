@@ -1,28 +1,23 @@
 <% if user_signed_in? %>
   <h1>Listing Posts</h1>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>User</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
       <% @posts.each do |post| %>
-        <tr>
-          <td><%= post.title %></td>
-          <td><%= post.user %></td>
-          <td><%= link_to 'Show', post %></td>
-          <td><%= link_to 'Edit', edit_post_path(post) %></td>
-          <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+        <ul class="list-group outer">
+          <li class="list-group-item">Title: <%= post.title %></li>
+          <li class="list-group-item">
+            <ul class="list-group">
+              <% post.comments.each do |comment| %>
+                <li class="list-group-item"><%= comment.content%></li>
+              <%end%>
+            </ul>
+          </li>
+          <%= link_to 'Show', post %>
+          <%= link_to 'Edit', edit_post_path(post) %>
+          <%= link_to 'Comment', new_post_comment_path(post) %>
+          
+          <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </ul>
       <% end %>
-    </tbody>
-  </table>
-
   <br>
 
   <%= link_to 'New Post', new_post_path %>

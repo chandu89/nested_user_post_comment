@@ -8,7 +8,11 @@ class User < ActiveRecord::Base
 	validate :username_in_one_word
 	validates :username, :format => { with: /\A[a-zA-Z0-9]*\z/ , :message => 'no special characters, only letters and numbers' }
 	has_many :posts
-		
+
+	validate :secure_password
+	def fullname
+		self.first_name + " " + self.last_name
+	end
 
 	attr_accessor :login
 	def self.find_for_database_authentication warden_conditions
@@ -65,5 +69,12 @@ class User < ActiveRecord::Base
 		if username.to_s.squish.split.size != 1
 			errors.add(:username, 'must be one word')
 		end
+	end
+	def secure_password
+	    if password.present?
+	       if !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/) 
+	         errors.add :password, "1. Upper Case 2.Lower case 3.Number"
+	       end
+	    end
 	end
 end
