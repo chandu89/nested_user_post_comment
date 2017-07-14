@@ -1,14 +1,19 @@
-a{
+a,a:visited{
 	color: blue;
 }
 a:hover{
 	color: #000000;
-	background: white; 
+	background: azure; 
 	text-decoration: none;
 	cursor: pointer;
 }
+
 ul.outer{     
   border: 1px solid black; 
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+}
+html, body{
+	background: azure;
+	height: 100%
 }
